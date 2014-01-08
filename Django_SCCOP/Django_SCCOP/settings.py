@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(__file__)
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+# DATABASES['default'] =  dj_database_url.config()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
