@@ -13,4 +13,5 @@ def master(request):
        'some_var_2': 'bar',
     }
     data = simplejson.dumps(some_data_to_dump)
-    return HttpResponse(data, mimetype='application/json')
+    print request
+    return HttpResponse(data, content_type='application/json')
