@@ -17,6 +17,7 @@
     {% if msg %}
       {{ msg }}
     {% else %}
+      <h2>User: {{ user.username }}</h2>
       <h3>RPM</h3>
       {% for rpm in user.get_rpm_values %}
         {{ rpm }}
