@@ -13,7 +13,20 @@
 
   <body>
     <h1>Smart Car CoPilot</h1>
-    
+    <h3>RPM</h3>
+    {% for rpm in user.get_rpm_values %}
+      {{ rpm }}
+    {% endfor %}
+    <hr/>
+    <h3>Speed, Avg. =</h3> {{ user.get_avg_speed }}
+    {% for speed in user.get_speed_values %}
+      {{ speed }}
+    {% endfor %}
+    <hr/>
+    <h3>Temperature</h3>
+    {% for temp in user.get_temp_values %}
+      {{ rpm }}
+    {% endfor %}
     {% block dashboard %}
 
     {% endblock dashboard %}

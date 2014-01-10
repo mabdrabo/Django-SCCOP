@@ -7,4 +7,5 @@ from sccop.models import *
 # Create your views here.
 
 def master(request):
-	return render_to_response('master.html', {}, RequestContext(request))
+	user = User.objects.get(username="01005574388")
+	return render_to_response('master.html', {'user': user}, RequestContext(request))

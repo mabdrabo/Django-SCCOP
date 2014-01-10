@@ -15,6 +15,6 @@ urlpatterns += patterns('sccop.views',
 	url(r'^$', "master", name="home"),
 )
 
-urlpatterns += patterns('sccop.mobile',
-	url(r'^mobile/update/$', "master", name="home"),
+urlpatterns += patterns('sccop.api',
+	url(r'^api/log/add/$', "add", name="api_add_log"),
 )
