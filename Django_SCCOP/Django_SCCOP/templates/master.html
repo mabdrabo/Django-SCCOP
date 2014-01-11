@@ -12,6 +12,10 @@
         padding-bottom: 40px;
       }
 
+      h6 {
+        margin: 0;
+      }
+
       /* Custom container */
       .container-narrow {
         margin: 0 auto;
@@ -42,7 +46,11 @@
       .marketing p + h4 {
         margin-top: 28px;
       }
+      {% block css %}
+        
+      {% endblock css %}
     </style>
+
     {% block header %}
 
     {% endblock header %}

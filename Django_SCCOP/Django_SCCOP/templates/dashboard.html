@@ -1,3 +1,5 @@
+{% extends  "master.html" %}
+
 {% block main_container %}
 	{% if msg %}
         <div class="alert alert-danger">
@@ -6,28 +8,38 @@
 
       {% else %}
         <div class="alert alert-info">User: {{ user.username }}</div>
-        <div class="row">
-
-          <div class="col-sm-4">
-            <h3>RPM</h3>
-            {% for rpm in user.get_rpm_values %}
-              {{ rpm }}
-            {% endfor %}
-          </div>
-
-          <div class="col-sm-4">
-            <h3>Speed</h3>
-            {% for speed in user.get_speed_values %}
-              {{ speed }}
-            {% endfor %}
-          </div>
-
-          <div class="col-sm-4">
-            <h3>Temperature</h3>
-            {% for temp in user.get_temp_values %}
-              {{ temp }}
-            {% endfor %}
-          </div>
+        <div class="row-fluid">
+	        <div class="well span4 text-center">
+	            <h4>RPM</h4>
+	            <h2>{{ values.rpm_values|first }}</h2>
+	            <h6>max {{ values.rpm_max}}</h6>
+	            <h6>min {{ values.rpm_min}}</h6>
+	            <h6>avg {{ values.rpm_avg}}</h6>
+          	</div>
+          	<div class="well span4 text-center">
+	            <h4>Speed</h4>
+	            <h2>{{ values.speed_values|first }}</h2>
+	            <h6>max {{ values.speed_max}}</h6>
+	            <h6>min {{ values.speed_min}}</h6>
+	            <h6>avg {{ values.speed_avg}}</h6>
+          	</div>
+        	<div class="well span4 text-center">
+	            <h4>Temperature</h4>
+	            <h2>{{ values.temp_values|first }}</h2>
+	            <h6>max {{ values.temp_max}}</h6>
+	            <h6>min {{ values.temp_min}}</h6>
+	            <h6>avg {{ values.temp_avg}}</h6>
+          	</div>
+        </div>
+        <div class="row-fluid">
+			<div class="well span4 text-center">
+				<h4>Fuel</h4>
+				<h2>{{ values.fuel_values|first }}%</h2>
+			</div>
+			<div class="well span4 text-center">
+				<h4>Engine Load</h4>
+				<h2>{{ values.fuel_values|first }}%</h2>
+			</div>
         </div>
       {% endif %}
 {% endblock main_container %}
