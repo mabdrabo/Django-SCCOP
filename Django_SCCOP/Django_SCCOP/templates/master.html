@@ -3,36 +3,95 @@
 
   <head>
     <title>SCCOP</title>
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.23.custom.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.min.css">
+    <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
     {% block header %}
 
     {% endblock header %}
   </head>
 
   <body>
-    <h1>Smart Car CoPilot</h1>
+    <div class="container-narrow">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="muted">SCCOP</h3>
+      </div>
+      <hr/>
+      {% block main_container %}
+        <div class="jumbotron">
+          <h1>Smart Car CoPilot</h1>
+          <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <a class="btn btn-large btn-success" href="#">Sign up today</a>
+          <a class="btn btn-large btn-primary" href="#">Sign in</a>
+        </div>
+        <hr/>
+        <div class="row-fluid marketing">
+          <div class="span6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-    {% if msg %}
-      {{ msg }}
-    {% else %}
-      <h2>User: {{ user.username }}</h2>
-      <h3>RPM</h3>
-      {% for rpm in user.get_rpm_values %}
-        {{ rpm }}
-      {% endfor %}
-      <hr/>
-      <h3>Speed</h3>
-      {% for speed in user.get_speed_values %}
-        {{ speed }}
-      {% endfor %}
-      <hr/>
-      <h3>Temperature</h3>
-      {% for temp in user.get_temp_values %}
-        {{ temp }}
-      {% endfor %}
-    {% endif %}
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+          </div>
+
+          <div class="span6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+          </div>
+        </div>
+      {% endblock main_container %}
+    </div>
   </body>
 
 </html>

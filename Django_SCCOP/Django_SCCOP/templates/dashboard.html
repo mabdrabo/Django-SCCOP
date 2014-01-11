@@ -1,0 +1,33 @@
+{% block main_container %}
+	{% if msg %}
+        <div class="alert alert-danger">
+          {{ msg }}
+        </div>
+
+      {% else %}
+        <div class="alert alert-info">User: {{ user.username }}</div>
+        <div class="row">
+
+          <div class="col-sm-4">
+            <h3>RPM</h3>
+            {% for rpm in user.get_rpm_values %}
+              {{ rpm }}
+            {% endfor %}
+          </div>
+
+          <div class="col-sm-4">
+            <h3>Speed</h3>
+            {% for speed in user.get_speed_values %}
+              {{ speed }}
+            {% endfor %}
+          </div>
+
+          <div class="col-sm-4">
+            <h3>Temperature</h3>
+            {% for temp in user.get_temp_values %}
+              {{ temp }}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+{% endblock main_container %}

@@ -13,6 +13,7 @@ urlpatterns = patterns('',
  
 urlpatterns += patterns('sccop.views',
 	url(r'^$', "master", name="home"),
+	url(r'^dashboard/(?P<username>\d+)$', "dashboard", name="dashboard"),
 )
 
 urlpatterns += patterns('sccop.api',
