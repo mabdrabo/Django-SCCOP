@@ -5,8 +5,8 @@ import datetime
 
 class User(models.Model):
     username = models.CharField(max_length=128)
-    lon = models.FloatField()
-    lat = models.FloatField()
+    lon = models.FloatField(null=True, blank=True)
+    lat = models.FloatField(null=True, blank=True)
 
     def __unicode__(self):
         return self.username

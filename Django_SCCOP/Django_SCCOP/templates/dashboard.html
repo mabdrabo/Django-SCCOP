@@ -1,10 +1,19 @@
 {% extends  "master.html" %}
 
+{% block header %}
+{% endblock header %}
+
 {% block script %}
-	$('#dashboard-tab').addClass('active')
+	$('#dashboard-tab').addClass('active');
+	lat = {{ user.lat }};
+	lon = {{ user.lon }};
+	loadMapScript();
 {% endblock script %}
 
 {% block main_container %}
+
+	<div id='map-canvas' style="height:300px;width:100%;"></div>
+	<br/>
     <div class="row-fluid">
         <div class="well span4 text-center">
             <h4>RPM</h4>
@@ -49,6 +58,6 @@
 			<h6>max {{ extras.engine_max}}</h6>
             <h6>min {{ extras.engine_min}}</h6>
             <h6>avg {{ extras.engine_avg}}</h6>
-		</div>
+		</div> 
     </div>
 {% endblock main_container %}

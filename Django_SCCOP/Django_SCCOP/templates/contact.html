@@ -5,7 +5,7 @@
 {% endblock script %}
 
 {% block main_container %}
-	<legend>For any questions about the project idea, code or potential contribution, feel free to contact us. Have a nice day :)</legend>
+	<legend>For any questions about the project idea, code or potential contribution, feel free to contact us</legend>
 	<form class="form-horizontal" method="POST" action="{% url 'email_send' %}">
 		{% csrf_token %}
 		<div class="control-group">

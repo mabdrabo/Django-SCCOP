@@ -3,10 +3,18 @@
 
   <head>
     <title>SCCOP</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.min.css">
     <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     <style type="text/css">
+
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
       body {
         padding-top: 20px;
         padding-bottom: 40px;
@@ -58,9 +66,56 @@
         
       {% endblock css %}
     </style>
+    {% block header %}
+
+    {% endblock header %}
     <script>
+      var map;
+      var lat;
+      var lon;
+      var geocoder;
+      var infowindow;
+      var marker;
+      var myLocation;
+      function refreshMap() {
+        geocoder = new google.maps.Geocoder();
+        infowindow = new google.maps.InfoWindow();
+        myLocation = new google.maps.LatLng(lat, lon);
+        var mapOptions = {
+          zoom: 11,
+          center: myLocation
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        geocoder.geocode({'latLng': myLocation}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              map.setZoom(11);
+              marker = new google.maps.Marker({
+                  position: myLocation,
+                  map: map
+              });
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+            }
+          } else {
+            alert("Geocoder failed due to: " + status);
+          }
+        });
+      }
+
+      function loadMapScript() {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
+            'callback=refreshMap';
+        document.body.appendChild(script);
+      }
+
       $(document).ready(function () {
-        $('#login').popover();
+        $('#signin').popover();
         $('#signup').popover();
 
         {% block script %}
@@ -70,9 +125,6 @@
       });
     </script>
 
-    {% block header %}
-
-    {% endblock header %}
   </head>
 
   <body>
@@ -109,8 +161,8 @@
       {% endif %}
 
       {% if request.session.username %}
-        <div class="alert alert-info">Logged in as {{ request.session.username }}.
-          <a href="{% url 'logout' %}">Logout?</a>
+        <div class="alert alert-info">Signed in as {{ request.session.username }}.
+          <a href="{% url 'signout' %}">Sign out?</a>
         </div>
       {% endif %}
 
@@ -118,12 +170,19 @@
         <div class="jumbotron">
           <h1>Smart Car CoPilot</h1>
           <p class="lead">Engine Performance and Diagnostic Tool for Automotive Professionals and Enthusiasts</p>
-          <a class="btn btn-large btn-success" href="#">Sign up today</a>
-          <a id='login' class="btn btn-large btn-primary" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'login' %}'>
+          <p>SCCOP is an OBD2 performance and diagnostic tool for any device that runs the Android operating system. It will allow you to access the many sensors within your vehicles Engine Management System, that is why it has got its name Smart Car CoPilot (SCCOP)</p>
+          <a id='signup' class="btn btn-large btn-success" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'signup' %}'>
+            {% csrf_token %}
+            <input type='text' name='username' width='20px' placeholder='username'>
+            <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
+          </form>">Sign up today</a>
+          
+          <a id='signin' class="btn btn-large btn-primary" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'signin' %}'>
             {% csrf_token %}
             <input type='text' name='username' width='20px' placeholder='username'>
             <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
           </form>">Sign in</a>
+
         </div>
         <hr/>
         <div class="row-fluid marketing text-center">
@@ -145,6 +204,12 @@
             <p><a href="https://github.com/mabdrabo/Django-SCCOP">Opensource Django software</a></p>
           </div>
         </div>
+        <hr/>
+        <footer>
+          <small>
+            <p class="muted">* some of the content on this page is from <a class="muted" href="http://torque-bhp.com/">Torque.</a></p>
+          </small>
+        </footer>
       {% endblock main_container %}
     </div>
   </body>

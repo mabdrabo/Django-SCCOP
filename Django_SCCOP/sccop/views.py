@@ -11,7 +11,16 @@ def master(request):
     return render_to_response('master.html', {}, RequestContext(request))
 
 
-def login(request):
+def signup(request):
+    if request.POST:
+        if 'username' in request.POST:
+            user, new_object = User.objects.get_or_create(username=request.POST['username'])
+            request.session['username'] = user.username
+            return dashboard(request, dic={'success': "successfuly signed up and logged in as " + user.username})
+    return render_to_response('master.html', {'error': 'enter your username'}, RequestContext(request))
+
+
+def signin(request):
     if request.POST:
         if 'username' in request.POST:
             try:
@@ -20,9 +29,10 @@ def login(request):
                 return dashboard(request, dic={'success': "you're logged in as " + user.username})
             except User.DoesNotExist:
                 return render_to_response('master.html', {'error': 'user not found'}, RequestContext(request))
+    return render_to_response('master.html', {'error': 'enter your username'}, RequestContext(request))
 
 
-def logout(request):
+def signout(request):
     if 'username' in request.session:
         del request.session['username']
         return render_to_response('master.html', {'info': "You've Logged out"}, RequestContext(request))
