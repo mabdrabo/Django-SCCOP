@@ -10,6 +10,19 @@
       body {
         padding-top: 20px;
         padding-bottom: 40px;
+        background-color: #E9E9E9;
+      }
+
+      a:hover, a:visited, a:link, a:active {
+        text-decoration: none;
+      }
+
+      #ok-btn {
+        padding: 3px;
+      }
+
+      .container-narrow {
+        background-color: white;
       }
 
       h6 {
@@ -20,9 +33,6 @@
       .container-narrow {
         margin: 0 auto;
         max-width: 700px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
       }
 
       /* Main marketing message and sign up button */
@@ -50,6 +60,17 @@
         
       {% endblock css %}
     </style>
+    <script>
+      $(document).ready(function () {
+        $('#login').popover();
+        $('#signup').popover();
+
+        {% block script %}
+          $('#home-tab').addClass('active')
+        {% endblock script %}
+
+      });
+    </script>
 
     {% block header %}
 
@@ -60,19 +81,51 @@
     <div class="container-narrow">
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li id="home-tab"><a href="{% url 'home' %}">Home</a></li>
+          {% if request.session.username %}
+            <li id="dashboard-tab"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li id="log-tab"><a href="{% url 'log' %}">Log</a></li>
+          {% endif %}
+          <li id="about-tab"><a href="{% url 'about' %}">About</a></li>
+          <li id="contact-tab"><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
-        <h3 class="muted">SCCOP</h3>
+        <a href="{% url 'home' %}"><h3 class="muted">SCCOP</h3></a>
       </div>
       <hr/>
+      {% if error %}
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+      {% endif %}
+
+      {% if success %}
+        <div class="alert alert-success">
+          {{ success }}
+        </div>
+      {% endif %}
+
+      {% if info %}
+        <div class="alert alert-info">
+          {{ info }}
+        </div>
+      {% endif %}
+
+      {% if request.session.username %}
+        <div class="alert alert-info">Logged in as {{ request.session.username }}.
+          <a href="{% url 'logout' %}">Logout?</a>
+        </div>
+      {% endif %}
+
       {% block main_container %}
         <div class="jumbotron">
           <h1>Smart Car CoPilot</h1>
           <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
           <a class="btn btn-large btn-success" href="#">Sign up today</a>
-          <a class="btn btn-large btn-primary" href="#">Sign in</a>
+          <a id='login' class="btn btn-large btn-primary" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'login' %}'>
+            {% csrf_token %}
+            <input type='text' name='username' width='20px' placeholder='username'>
+            <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
+          </form>">Sign in</a>
         </div>
         <hr/>
         <div class="row-fluid marketing">

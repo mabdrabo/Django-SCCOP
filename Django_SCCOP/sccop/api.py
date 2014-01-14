@@ -18,6 +18,9 @@ def add(request):
             LogValue.objects.create(user=user, title="rpm", value=request.GET['rpm'])
             LogValue.objects.create(user=user, title="speed", value=request.GET['speed'])
             LogValue.objects.create(user=user, title="temp", value=request.GET['temp'])
+            LogValue.objects.create(user=user, title="throttle", value=request.GET['throttle'])
+            LogValue.objects.create(user=user, title="fuel", value=request.GET['fuel'])
+            LogValue.objects.create(user=user, title="engine", value=request.GET['engine'])
 
             return HttpResponse("OK")
     except Exception, e:

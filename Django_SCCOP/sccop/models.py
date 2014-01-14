@@ -11,6 +11,9 @@ class User(models.Model):
     def __unicode__(self):
         return self.username
 
+    def get(self, title):
+        return [log for log in LogValue.objects.filter(user=self, title=title).order_by('-date')]
+
     def get_values(self, title):
         return [log.value for log in LogValue.objects.filter(user=self, title=title).order_by('-date')]
 

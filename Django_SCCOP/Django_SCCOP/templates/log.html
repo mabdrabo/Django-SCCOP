@@ -1,0 +1,62 @@
+{% extends  "master.html" %}
+
+{% block script %}
+	$('#log-tab').addClass('active')
+{% endblock script %}
+
+{% block main_container %}
+	<div class="row-fluid marketing">
+
+		<div class="span12">
+			<table class="table table-striped">
+				<tr>
+					<td>Date</td>
+					<td>RPM</td>
+					<td>Speed</td>
+					<td>Temperature</td>
+					<td>Throttle</td>
+					<td>Fuel Level</td>
+					<td>Engine Load</td>
+				</tr>
+				{% for timestamp, values in logs.items %}
+					<tr>
+						<td>{{ timestamp }}</td>
+						{% for value in values %}
+							<td>{{ value.value }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+				<tr class="info">
+					<td>MAX</td>
+					<td>{{ extras.rpm_max }}</td>
+					<td>{{ extras.speed_max }}</td>
+					<td>{{ extras.temp_max }}</td>
+					<td>{{ extras.throttle_max }}</td>
+					<td>{{ extras.fuel_max }}</td>
+					<td>{{ extras.engine_max }}</td>
+				</tr>
+
+				<tr class="info">
+					<td>MIN</td>
+					<td>{{ extras.rpm_min }}</td>
+					<td>{{ extras.speed_min }}</td>
+					<td>{{ extras.temp_min }}</td>
+					<td>{{ extras.throttle_min }}</td>
+					<td>{{ extras.fuel_min }}</td>
+					<td>{{ extras.engine_min }}</td>
+				</tr>
+
+				<tr class="info">
+					<td>AVG</td>
+					<td>{{ extras.rpm_avg }}</td>
+					<td>{{ extras.speed_avg }}</td>
+					<td>{{ extras.temp_avg }}</td>
+					<td>{{ extras.throttle_avg }}</td>
+					<td>{{ extras.fuel_avg }}</td>
+					<td>{{ extras.engine_avg }}</td>
+				</tr>
+			</table>
+		</div>
+        
+	</div>
+{% endblock main_container %}
