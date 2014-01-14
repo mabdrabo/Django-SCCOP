@@ -17,6 +17,7 @@ urlpatterns += patterns('sccop.views',
 	url(r'^$', "master", name="home"),
 	url(r'^login$', "login", name="login"),
 	url(r'^logout$', "logout", name="logout"),
+	url(r'^email/send$', "email_send", name="email_send"),
 	url(r'^dashboard$', "dashboard", name="dashboard"),
 	url(r'^log$', "log", name="log"),
 )

@@ -54,6 +54,16 @@ def log(request):
     return render_to_response('master.html', {'error': 'please login'}, RequestContext(request))
 
 
+def email_send(request):
+    if request.POST:
+        if all(attr in request.POST for attr in ('email-from', 'email-subject', 'email-content')):
+            from django.core.mail import send_mail
+            send_mail(request.POST['email-subject'], request.POST['email-content'], request.POST['email-from'], ['abdrabo.mahmoud@gmail.com'], fail_silently=False)
+            return render_to_response('contact.html', {'success': "email sent"}, RequestContext(request))
+        else:
+            return render_to_response('contact.html', {'error': "email Not sent, please try again later"}, RequestContext(request))
+
+
 def get_user_objects(user):
     objects = {}
     extras = {}
