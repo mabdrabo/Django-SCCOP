@@ -21,16 +21,14 @@
         padding: 3px;
       }
 
-      .container-narrow {
-        background-color: white;
-      }
-
       h6 {
         margin: 0;
       }
 
       /* Custom container */
       .container-narrow {
+        background-color: white;
+        padding: 10px;
         margin: 0 auto;
         max-width: 700px;
       }
@@ -119,7 +117,7 @@
       {% block main_container %}
         <div class="jumbotron">
           <h1>Smart Car CoPilot</h1>
-          <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p class="lead">Engine Performance and Diagnostic Tool for Automotive Professionals and Enthusiasts</p>
           <a class="btn btn-large btn-success" href="#">Sign up today</a>
           <a id='login' class="btn btn-large btn-primary" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'login' %}'>
             {% csrf_token %}
@@ -128,27 +126,23 @@
           </form>">Sign in</a>
         </div>
         <hr/>
-        <div class="row-fluid marketing">
+        <div class="row-fluid marketing text-center">
           <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+            <h4>Features</h4>
+            <p>View live OBD engine data on your Android phone</p>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+            <p>Upload live OBD2 data the SCCOP web viewer in realtime</p>
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            <p>Save logs to the cloud with infinte space</p>
           </div>
 
           <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+            <h4>For Developers</h4>
+            <p><a href="https://github.com/mabdrabo/Android-SCCOP">Opensource Android software</a></p>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+            <p><a href="https://github.com/mabdrabo/Arduino-SCCOP">Opensource Arduino software</a></p>
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            <p><a href="https://github.com/mabdrabo/Django-SCCOP">Opensource Django software</a></p>
           </div>
         </div>
       {% endblock main_container %}

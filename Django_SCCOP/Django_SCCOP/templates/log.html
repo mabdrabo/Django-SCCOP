@@ -20,7 +20,7 @@
 				</tr>
 				{% for timestamp, values in logs.items %}
 					<tr>
-						<td>{{ timestamp|date:'d-m-Y f:s A' }}</td>
+						<td>{{ timestamp|date:'d-m-Y f:s a' }}</td>
 						{% for value in values %}
 							<td>{{ value.value }}</td>
 						{% endfor %}
