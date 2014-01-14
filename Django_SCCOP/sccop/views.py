@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect, render
 from django.template import RequestContext
 from django.utils import simplejson
+from collections import OrderedDict
 from sccop.models import *
 
 # Create your views here.
@@ -44,7 +45,7 @@ def log(request):
         try:
             user = User.objects.get(username=request.session['username'])
             objects, extras = get_user_objects(user)
-            logs = {}
+            logs = OrderedDict({})
             for rpm, speed, temp, throttle, fuel, engine in zip(objects['rpm_values'], objects['speed_values'], objects['temp_values'], objects['throttle_values'], objects['fuel_values'], objects['engine_values']):
                 logs[rpm.date] = [rpm, speed, temp, throttle, fuel, engine]
             return render_to_response('log.html', {'user': user, 'logs': logs, 'extras': extras}, RequestContext(request))
