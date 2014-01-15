@@ -65,6 +65,8 @@ class LogValue(models.Model):
         if not self.pk:
             if self.title == 'lon':
                 self.user.lon = self.value
+                self.user.save()
             elif self.title == 'lat':
                 self.user.lat = self.value
+                self.user.save()
         super(LogValue, self).save(*args, **kwargs)
