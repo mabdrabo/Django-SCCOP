@@ -7,29 +7,24 @@ from django.utils import simplejson
 
 # Create your views here.
 
-def add(request):
-    try:
-        if request.GET:
-            print "GEETTTTTT REQUESTTTTT!!!!!!!"
-            print "rpm: ", request.GET['rpm']
-            print "speed: ", request.GET['speed']
-            print "temp: ", request.GET['temp']
-            user = User.objects.get(username=request.GET['username'])
-            LogValue.objects.create(user=user, title="rpm", value=request.GET['rpm'])
-            LogValue.objects.create(user=user, title="speed", value=request.GET['speed'])
-            LogValue.objects.create(user=user, title="temp", value=request.GET['temp'])
-            LogValue.objects.create(user=user, title="throttle", value=request.GET['throttle'])
-            LogValue.objects.create(user=user, title="fuel", value=request.GET['fuel'])
-            LogValue.objects.create(user=user, title="engine", value=request.GET['engine'])
+def updateState(request):
+    return addLog(namesList = ('rpm', 'speed', 'temp', 'throttle', 'fuel', 'engine'))    
 
-            return HttpResponse("OK")
+
+def updateLocation(request):
+    return addLog(namesList = ('lat', 'lon'))
+
+
+def addLog(namesList):
+    try:
+        if request.GET and all(attr in request.GET for attr in namesList):
+            print "API Update, GET request"
+            try:
+                user = User.objects.get(username=request.GET['username'])
+                for name in namesList:
+                    LogValue.objects.create(user=user, title=name, value=request.GET[name])
+                return HttpResponse("OK")
+            except User.DoesNotExist:
+                return HttpResponse("username not found")
     except Exception, e:
         return HttpResponse(e)
-
-    # some_data_to_dump = {
-    #    'some_var_1': 'foo',
-    #    'some_var_2': 'bar',
-    # }
-    # data = simplejson.dumps(some_data_to_dump)
-    # print request
-    # return HttpResponse(data, content_type='application/json')

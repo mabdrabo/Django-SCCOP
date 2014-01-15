@@ -17,6 +17,11 @@ class User(models.Model):
     def get_values(self, title):
         return [log.value for log in LogValue.objects.filter(user=self, title=title).order_by('-date')]
 
+    def get_locations(self):
+        lons = self.get('lon')
+        lats = self.get('lat')
+        return [[lon, lat] for lon, lat in zip(lons, lats)]
+
     def get_avg(self, title):
         values = self.get_values(title)
         if values:
@@ -50,8 +55,16 @@ class User(models.Model):
 class LogValue(models.Model):
     user = models.ForeignKey(User, related_name='owner')
     title = models.CharField(max_length=64)
-    value = models.IntegerField()
+    value = models.FloatField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.title + " " + str(self.value)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.title == 'lon':
+                self.user.lon = self.value
+            elif self.title == 'lat':
+                self.user.lat = self.value
+        super(LogValue, self).save(*args, **kwargs)

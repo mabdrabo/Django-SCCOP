@@ -24,5 +24,6 @@ urlpatterns += patterns('sccop.views',
 )
 
 urlpatterns += patterns('sccop.api',
-	url(r'^api/log/add/$', "add", name="api_add_log"),
+	url(r'^api/update/state/$', "updateState", name="update_state"),
+	url(r'^api/update/location/$', "updateLocation", name="update_location"),
 )

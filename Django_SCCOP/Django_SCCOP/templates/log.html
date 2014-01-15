@@ -5,58 +5,89 @@
 {% endblock script %}
 
 {% block main_container %}
-	<div class="row-fluid marketing">
+	<ul class="nav nav-tabs">
+	  <li><a href="#state-tab" data-toggle="tab">Car State</a></li>
+	  <li><a href="#location-tab" data-toggle="tab">Car Location</a></li>
+	</ul>
 
-		<div class="span12">
-			<table class="table table-striped">
-				<tr>
-					<td>Date</td>
-					<td>RPM</td>
-					<td>Speed</td>
-					<td>Temperature</td>
-					<td>Throttle</td>
-					<td>Fuel Level</td>
-					<td>Engine Load</td>
-				</tr>
-				{% for timestamp, values in logs.items %}
-					<tr>
-						<td>{{ timestamp|date:'d-m-Y f:s a' }}</td>
-						{% for value in values %}
-							<td>{{ value.value }}</td>
+	<div class="tab-content">
+		<div id="state-tab" class="tab-pane active">
+			<div class="row-fluid marketing">
+				<div class="span12">
+					<table class="table table-striped">
+						<tr>
+							<td>Date</td>
+							<td>RPM</td>
+							<td>Speed</td>
+							<td>Temperature</td>
+							<td>Throttle</td>
+							<td>Fuel Level</td>
+							<td>Engine Load</td>
+						</tr>
+						{% for timestamp, values in logs.items %}
+							<tr>
+								<td>{{ timestamp|date:'d-m-Y f:s a' }}</td>
+								{% for value in values %}
+									<td>{{ value.value }}</td>
+								{% endfor %}
+							</tr>
 						{% endfor %}
-					</tr>
-				{% endfor %}
-				<tr class="info">
-					<td>MAX</td>
-					<td>{{ extras.rpm_max }}</td>
-					<td>{{ extras.speed_max }}</td>
-					<td>{{ extras.temp_max }}</td>
-					<td>{{ extras.throttle_max }}</td>
-					<td>{{ extras.fuel_max }}</td>
-					<td>{{ extras.engine_max }}</td>
-				</tr>
+						<tr class="info">
+							<td>MAX</td>
+							<td>{{ extras.rpm_max }}</td>
+							<td>{{ extras.speed_max }}</td>
+							<td>{{ extras.temp_max }}</td>
+							<td>{{ extras.throttle_max }}</td>
+							<td>{{ extras.fuel_max }}</td>
+							<td>{{ extras.engine_max }}</td>
+						</tr>
 
-				<tr class="info">
-					<td>MIN</td>
-					<td>{{ extras.rpm_min }}</td>
-					<td>{{ extras.speed_min }}</td>
-					<td>{{ extras.temp_min }}</td>
-					<td>{{ extras.throttle_min }}</td>
-					<td>{{ extras.fuel_min }}</td>
-					<td>{{ extras.engine_min }}</td>
-				</tr>
+						<tr class="info">
+							<td>MIN</td>
+							<td>{{ extras.rpm_min }}</td>
+							<td>{{ extras.speed_min }}</td>
+							<td>{{ extras.temp_min }}</td>
+							<td>{{ extras.throttle_min }}</td>
+							<td>{{ extras.fuel_min }}</td>
+							<td>{{ extras.engine_min }}</td>
+						</tr>
 
-				<tr class="info">
-					<td>AVG</td>
-					<td>{{ extras.rpm_avg }}</td>
-					<td>{{ extras.speed_avg }}</td>
-					<td>{{ extras.temp_avg }}</td>
-					<td>{{ extras.throttle_avg }}</td>
-					<td>{{ extras.fuel_avg }}</td>
-					<td>{{ extras.engine_avg }}</td>
-				</tr>
-			</table>
+						<tr class="info">
+							<td>AVG</td>
+							<td>{{ extras.rpm_avg }}</td>
+							<td>{{ extras.speed_avg }}</td>
+							<td>{{ extras.temp_avg }}</td>
+							<td>{{ extras.throttle_avg }}</td>
+							<td>{{ extras.fuel_avg }}</td>
+							<td>{{ extras.engine_avg }}</td>
+						</tr>
+					</table>
+				</div>
+		    </div>
 		</div>
-        
+
+		<div id="location-tab" class="tab-pane">
+		    <div class="row-fluid marketing">
+				<div class="span12">
+					<table class="table table-striped">
+						<tr>
+							<td>Date</td>
+							<td>Longitude</td>
+							<td>Latitude</td>
+						</tr>
+
+						{% for locations_dict in locations.items %}
+							{% for location in locations_dict.1 %}
+								<tr>
+									<td>{{ location.0.date }}</td>
+									<td>{{ location.0.value }}</td>
+									<td>{{ location.1.value }}</td>
+								</tr>
+							{% endfor %}
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock main_container %}
