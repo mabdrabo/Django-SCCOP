@@ -54,12 +54,12 @@
 
 						<tr class="info">
 							<td>AVG</td>
-							<td>{{ extras.rpm_avg }}</td>
-							<td>{{ extras.speed_avg }}</td>
-							<td>{{ extras.temp_avg }}</td>
-							<td>{{ extras.throttle_avg }}</td>
-							<td>{{ extras.fuel_avg }}</td>
-							<td>{{ extras.engine_avg }}</td>
+							<td>{{ extras.rpm_avg|floatformat:"0" }}</td>
+							<td>{{ extras.speed_avg|floatformat:"0" }}</td>
+							<td>{{ extras.temp_avg|floatformat:"0" }}</td>
+							<td>{{ extras.throttle_avg|floatformat:"0" }}</td>
+							<td>{{ extras.fuel_avg|floatformat:"0" }}</td>
+							<td>{{ extras.engine_avg|floatformat:"0" }}</td>
 						</tr>
 					</table>
 				</div>

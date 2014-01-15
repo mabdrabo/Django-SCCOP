@@ -18,23 +18,23 @@
         <div class="well span4 text-center">
             <h4>RPM</h4>
             <h2>{{ objects.rpm_values.0.value }}</h2>
-            <h6>max {{ extras.rpm_max}}</h6>
-            <h6>min {{ extras.rpm_min}}</h6>
-            <h6>avg {{ extras.rpm_avg}}</h6>
+            <h6>max {{ extras.rpm_max }}</h6>
+            <h6>min {{ extras.rpm_min }}</h6>
+            <h6>avg {{ extras.rpm_avg|floatformat:"0" }}</h6>
       	</div>
       	<div class="well span4 text-center">
             <h4>Speed</h4>
             <h2>{{ objects.speed_values.0.value }}</h2>
-            <h6>max {{ extras.speed_max}}</h6>
-            <h6>min {{ extras.speed_min}}</h6>
-            <h6>avg {{ extras.speed_avg}}</h6>
+            <h6>max {{ extras.speed_max }}</h6>
+            <h6>min {{ extras.speed_min }}</h6>
+            <h6>avg {{ extras.speed_avg|floatformat:"0" }}</h6>
       	</div>
     	<div class="well span4 text-center">
             <h4>Temperature</h4>
             <h2>{{ objects.temp_values.0.value }}</h2>
-            <h6>max {{ extras.temp_max}}</h6>
-            <h6>min {{ extras.temp_min}}</h6>
-            <h6>avg {{ extras.temp_avg}}</h6>
+            <h6>max {{ extras.temp_max }}</h6>
+            <h6>min {{ extras.temp_min }}</h6>
+            <h6>avg {{ extras.temp_avg|floatformat:"0" }}</h6>
       	</div>
     </div>
     <div class="row-fluid">
