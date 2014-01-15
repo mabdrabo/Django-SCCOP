@@ -8,14 +8,14 @@ from django.utils import simplejson
 # Create your views here.
 
 def updateState(request):
-    return addLog(namesList = ('rpm', 'speed', 'temp', 'throttle', 'fuel', 'engine'))    
+    return addLog(request, namesList = ('rpm', 'speed', 'temp', 'throttle', 'fuel', 'engine'))    
 
 
 def updateLocation(request):
-    return addLog(namesList = ('lat', 'lon'))
+    return addLog(request, namesList = ('lat', 'lon'))
 
 
-def addLog(namesList):
+def addLog(request, namesList):
     try:
         if request.GET and all(attr in request.GET for attr in namesList):
             print "API Update, GET request"
