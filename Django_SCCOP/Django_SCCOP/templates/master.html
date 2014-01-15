@@ -3,21 +3,217 @@
 
   <head>
     <title>SCCOP</title>
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.23.custom.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.min.css">
+    <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <style type="text/css">
+
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+        background-color: #E9E9E9;
+      }
+
+      a:hover, a:visited, a:link, a:active {
+        text-decoration: none;
+      }
+
+      #ok-btn {
+        padding: 3px;
+      }
+
+      h6 {
+        margin: 0;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        background-color: white;
+        padding: 10px;
+        margin: 0 auto;
+        max-width: 700px;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+      {% block css %}
+        
+      {% endblock css %}
+    </style>
     {% block header %}
 
     {% endblock header %}
+    <script>
+      var map;
+      var lat;
+      var lon;
+      var geocoder;
+      var infowindow;
+      var marker;
+      var myLocation;
+      function refreshMap() {
+        geocoder = new google.maps.Geocoder();
+        infowindow = new google.maps.InfoWindow();
+        myLocation = new google.maps.LatLng(lat, lon);
+        var mapOptions = {
+          zoom: 15,
+          center: myLocation
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        geocoder.geocode({'latLng': myLocation}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              map.setZoom(16);
+              marker = new google.maps.Marker({
+                  position: myLocation,
+                  map: map
+              });
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+            }
+          } else {
+            alert("Geocoder failed due to: " + status);
+          }
+        });
+      }
+
+      function loadMapScript() {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
+            'callback=refreshMap';
+        document.body.appendChild(script);
+      }
+
+      $(document).ready(function () {
+        $('#signin').popover();
+        $('#signup').popover();
+
+        {% block script %}
+          $('#home-tab').addClass('active')
+        {% endblock script %}
+
+      });
+    </script>
+
   </head>
 
   <body>
-    <h1>Smart Car CoPilot</h1>
-    
-    {% block dashboard %}
+    <div class="container-narrow">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li id="home-tab"><a href="{% url 'home' %}">Home</a></li>
+          {% if request.session.username %}
+            <li id="dashboard-tab"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li id="log-tab"><a href="{% url 'log' %}">Log</a></li>
+          {% endif %}
+          <li id="about-tab"><a href="{% url 'about' %}">About</a></li>
+          <li id="contact-tab"><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <a href="{% url 'home' %}"><h3 class="muted">SCCOP</h3></a>
+      </div>
+      <hr/>
+      {% if error %}
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+      {% endif %}
 
-    {% endblock dashboard %}
+      {% if success %}
+        <div class="alert alert-success">
+          {{ success }}
+        </div>
+      {% endif %}
 
+      {% if info %}
+        <div class="alert alert-info">
+          {{ info }}
+        </div>
+      {% endif %}
+
+      {% if request.session.username %}
+        <div class="alert alert-info">Signed in as {{ request.session.username }}.
+          <a href="{% url 'signout' %}">Sign out?</a>
+        </div>
+      {% endif %}
+
+      {% block main_container %}
+        <div class="jumbotron">
+          <h1>Smart Car CoPilot</h1>
+          <p class="lead">Engine Performance and Diagnostic Tool for Automotive Professionals and Enthusiasts</p>
+          <p>SCCOP is an OBD2 performance and diagnostic tool for any device that runs the Android operating system. It will allow you to access the many sensors within your vehicles Engine Management System, that is why it has got its name Smart Car CoPilot (SCCOP)</p>
+          <a id='signup' class="btn btn-large btn-success" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'signup' %}'>
+            {% csrf_token %}
+            <input type='text' name='username' width='20px' placeholder='username'>
+            <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
+          </form>">Sign up today</a>
+          
+          <a id='signin' class="btn btn-large btn-primary" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'signin' %}'>
+            {% csrf_token %}
+            <input type='text' name='username' width='20px' placeholder='username'>
+            <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
+          </form>">Sign in</a>
+
+        </div>
+        <hr/>
+        <div class="row-fluid marketing text-center">
+          <div class="span6">
+            <h4>Features</h4>
+            <p>View live OBD engine data on your Android phone</p>
+
+            <p>Upload live OBD data to your SCCOP</p>
+
+            <p>Live location updates</p>
+
+            <p>Save logs to the cloud with infinite space</p>
+          </div>
+
+          <div class="span6">
+            <h4>For Developers</h4>
+            <p><a href="https://github.com/mabdrabo/Android-SCCOP">Opensource Android software</a></p>
+
+            <p><a href="https://github.com/mabdrabo/Arduino-SCCOP">Opensource Arduino software</a></p>
+
+            <p><a href="https://github.com/mabdrabo/Django-SCCOP">Opensource Django software</a></p>
+          </div>
+        </div>
+        <hr/>
+        <footer>
+          <small>
+            <p class="muted">* some of the content on this page is from <a class="muted" href="http://torque-bhp.com/">Torque.</a></p>
+          </small>
+        </footer>
+      {% endblock main_container %}
+    </div>
   </body>
 
 </html>
