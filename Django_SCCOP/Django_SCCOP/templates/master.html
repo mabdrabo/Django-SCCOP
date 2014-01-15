@@ -82,7 +82,7 @@
         infowindow = new google.maps.InfoWindow();
         myLocation = new google.maps.LatLng(lat, lon);
         var mapOptions = {
-          zoom: 11,
+          zoom: 15,
           center: myLocation
         };
 
@@ -92,7 +92,7 @@
         geocoder.geocode({'latLng': myLocation}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-              map.setZoom(11);
+              map.setZoom(16);
               marker = new google.maps.Marker({
                   position: myLocation,
                   map: map
