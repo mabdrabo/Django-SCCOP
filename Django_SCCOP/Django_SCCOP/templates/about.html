@@ -5,7 +5,8 @@
 {% endblock script %}
 
 {% block main_container %}
-	<object data="{{STATIC_URL}}SCCOP_Project_Report.pdf" type="application/pdf" width="100%" height="800px">
+
+	<object data="{{STATIC_URL}}SCCOP_Project_Report.pdf" type="application/pdf" width="100%" height="800px" style="background: transparent url({{STATIC_URL}}loading.gif) no-repeat center;">
   		<p>It appears you don't have a PDF plugin for this browser.
   			<a href="{{STATIC_URL}}SCCOP_Project_Report.pdf">click here to download the PDF file.</a>
   		</p>
