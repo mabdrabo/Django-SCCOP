@@ -41,23 +41,23 @@
 		<div class="well span4 text-center">
 			<h4>Throttle</h4>
 			<h2>{{ objects.throttle_values.0.value }}%</h2>
-			<h6>max {{ extras.throttle_max}}</h6>
-            <h6>min {{ extras.throttle_min}}</h6>
-            <h6>avg {{ extras.throttle_avg}}</h6>
+			<h6>max {{ extras.throttle_max }}</h6>
+            <h6>min {{ extras.throttle_min }}</h6>
+            <h6>avg {{ extras.throttle_avg|floatformat:"0" }}</h6>
 		</div>
 		<div class="well span4 text-center">
 			<h4>Fuel Level</h4>
 			<h2>{{ objects.fuel_values.0.value }}%</h2>
-			<h6>max {{ extras.fuel_max}}</h6>
-            <h6>min {{ extras.fuel_min}}</h6>
-            <h6>avg {{ extras.fuel_avg}}</h6>
+			<h6>max {{ extras.fuel_max }}</h6>
+            <h6>min {{ extras.fuel_min }}</h6>
+            <h6>avg {{ extras.fuel_avg|floatformat:"0" }}</h6>
 		</div>
 		<div class="well span4 text-center">
 			<h4>Engine Load</h4>
 			<h2>{{ objects.engine_values.0.value }}%</h2>
-			<h6>max {{ extras.engine_max}}</h6>
-            <h6>min {{ extras.engine_min}}</h6>
-            <h6>avg {{ extras.engine_avg}}</h6>
+			<h6>max {{ extras.engine_max }}</h6>
+            <h6>min {{ extras.engine_min }}</h6>
+            <h6>avg {{ extras.engine_avg|floatformat:"0" }}</h6>
 		</div> 
     </div>
 {% endblock main_container %}
