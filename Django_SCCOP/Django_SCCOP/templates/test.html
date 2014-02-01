@@ -1,68 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sound Recorder</title>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-  </head>
-
   <body>
-    <div class="navbar navbar-static-top">
-      <div class="container">
-        <a class="navbar-brand" href="/"><img src="/images/icon.png" width=18 height=18 style="vertical-align:middle"/>Echo</a>
-      </div>
-    </div>
-
-    <div class="container">
-      <audio id="player" src=""></audio>
-      <audio id="recorder" src=""></audio>
-      <audio id="echoplayer" src=""></audio>
-      
-      <h1>Echo HTML5 Audio Tests <a class="btn btn-primary" target="_blank" href="view-source:http://learnwithecho.com/testaudio.html">View Source</a></h1>
-      <hr>
-      
-      <h2>request access to user microphone</h2>
-      <a class="btn btn-default" onclick="getUserMedia({audio:true}, function(){$('.enableWhenGotUserMediaStream').removeClass('disabled')})">
-        Get user media
-      </a>
-      <hr>
-    
-      <h2>record sound with VU meter and playback</h2>
-      <a class="btn btn-default pull-left disabled enableWhenGotUserMediaStream" onclick="startStopPractice(this,$('#echoButton'),$('#practiceVolume'),$('#echoplayer'))">
-        <i class="icon-microphone"></i>
-      </a>
-      <a class="btn btn-default pull-left disabled" onclick="startEcho($('#echoplayer'))" id="echoButton">
-        <i class="icon-play"></i>
-      </a>
-      <div class="progress" style="height: 38px; width: 200px">
-        <div class="progress-bar" id="practiceVolume" style="width: 0%; transition:none"></div>
-      </div>
-      <hr>
-    
-      <h2>Test 4 -- upload file to server</h2>
-      <button class="btn btn-default" onclick="sendBlob()">Upload</button>
-      <p>Use Charles / another debug tool to confirm this file is going up</p>
-    
-    </div><!--/.fluid-container-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
-    <script src="/echoAudio.js"></script>
-    
-    
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-52764-14']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-    
+    <button onclick="toggleRecording(this);">record</button>
+      <script src="recorder.js"></script>
+      <script src="main.js"></script>
   </body>
 </html>
