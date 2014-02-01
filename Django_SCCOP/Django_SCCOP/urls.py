@@ -21,6 +21,7 @@ urlpatterns += patterns('sccop.views',
 	url(r'^email/send$', "email_send", name="email_send"),
 	url(r'^dashboard$', "dashboard", name="dashboard"),
 	url(r'^log$', "log", name="log"),
+	url(r'^sound/record$', "soundRecord", name="sound_record"),
 )
 
 urlpatterns += patterns('sccop.api',

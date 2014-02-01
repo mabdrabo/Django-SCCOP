@@ -104,3 +104,7 @@ def get_user_objects(user):
     extras['engine_avg'] = user.get_avg('engine')
     locations['locations'] = user.get_locations()
     return objects, extras, locations
+
+
+def soundRecord(request):
+    return render_to_response('test.html', {}, RequestContext(request))
