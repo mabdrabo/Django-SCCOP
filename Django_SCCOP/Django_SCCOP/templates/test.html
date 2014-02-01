@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <body>
+    <div id="viz">
+      <canvas id="analyser" width="1024" height="500"></canvas>
+      <canvas id="wavedisplay" width="1024" height="500"></canvas>
+    </div>
     <button onclick="toggleRecording(this);">record</button>
     <button onclick="saveAudio();">save</button>
       <script src="{{STATIC_URL}}js/recorder.js"></script>
