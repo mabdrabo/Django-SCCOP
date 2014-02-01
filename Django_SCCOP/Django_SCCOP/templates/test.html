@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <body>
+    <button onclick="toggleRecording(this);">record</button>
+    <button onclick="saveAudio();">save</button>
+    
     <div id="viz">
       <canvas id="analyser" width="1024" height="500"></canvas>
       <canvas id="wavedisplay" width="1024" height="500"></canvas>
     </div>
-    <button onclick="toggleRecording(this);">record</button>
-    <button onclick="saveAudio();">save</button>
+
+      <script src="{{STATIC_URL}}js/AudioContextMonkeyPatch.js"></script>
+      <script src="{{STATIC_URL}}js/audiodisplay.js"></script>
       <script src="{{STATIC_URL}}js/recorder.js"></script>
       <script src="{{STATIC_URL}}js/main.js"></script>
   </body>
