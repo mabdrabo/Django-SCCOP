@@ -19,7 +19,7 @@ DEALINGS IN THE SOFTWARE.
 
 (function(window){
 
-  var WORKER_PATH = 'recorderWorker.js';
+  var WORKER_PATH = '/static/js/recorderWorker.js';
 
   var Recorder = function(source, cfg){
     var config = cfg || {};
@@ -30,8 +30,8 @@ DEALINGS IN THE SOFTWARE.
     } else {
        this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
     }
-   
-    var worker = new Worker(config.workerPath || WORKER_PATH);
+   // config.workerPath || WORKER_PATH
+    var worker = new Worker(WORKER_PATH);
     worker.postMessage({
       command: 'init',
       config: {

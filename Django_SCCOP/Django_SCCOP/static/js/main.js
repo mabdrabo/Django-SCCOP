@@ -104,7 +104,6 @@ function gotStream(stream) {
     zeroGain.gain.value = 0.0;
     inputPoint.connect( zeroGain );
     zeroGain.connect( audioContext.destination );
-    updateAnalysers();
 }
 
 function initAudio() {
