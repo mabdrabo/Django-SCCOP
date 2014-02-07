@@ -23,6 +23,7 @@ var audioInput = null,
 var rafID = null;
 var analyserContext = null;
 var recIndex = 0;
+var filename = "output";
 
 /* TODO:
 
@@ -30,14 +31,16 @@ var recIndex = 0;
 - "Monitor input" switch
 */
 
-function saveAudio() {
+function saveAudio(file_name) {
+    alert(file_name);
+    filename = file_name;
     audioRecorder.exportWAV( doneEncoding );
     // could get mono instead by saying
     // audioRecorder.exportMonoWAV( doneEncoding );
 }
 
 function doneEncoding( blob ) {
-    Recorder.forceDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
+    Recorder.forceDownload( blob, filename + ".wav" );
     recIndex++;
 }
 
