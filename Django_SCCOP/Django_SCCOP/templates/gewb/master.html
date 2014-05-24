@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>SCCOP</title>
+    <title>GEWB</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.min.css">
@@ -135,12 +135,12 @@
           <li id="home-tab"><a href="{% url 'home' %}">Home</a></li>
           {% if request.session.username %}
             <li id="dashboard-tab"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li id="log-tab"><a href="{% url 'log' %}">Log</a></li>
+            <li id="log-tab"><a href="{% url 'view_log' request.session.username %}">Log</a></li>
           {% endif %}
           <li id="about-tab"><a href="{% url 'about' %}">About</a></li>
           <li id="contact-tab"><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
-        <a href="{% url 'home' %}"><h3 class="muted">SCCOP</h3></a>
+        <a href="{% url 'home' %}"><h3 class="muted">GEWB</h3></a>
       </div>
       <hr/>
       {% if error %}
@@ -169,18 +169,21 @@
 
       {% block main_container %}
         <div class="jumbotron">
-          <h1>Smart Car CoPilot</h1>
-          <p class="lead">Engine Performance and Diagnostic Tool for Automotive Professionals and Enthusiasts</p>
-          <p>SCCOP is an OBD2 performance and diagnostic tool for any device that runs the Android operating system. It will allow you to access the many sensors within your vehicles Engine Management System, that is why it has got its name Smart Car CoPilot (SCCOP)</p>
+          <h1>Smart Emergency WristBand</h1>
+          <p class="lead">Emergency Caller Wristband with an Intel Galileo brain</p>
+          <p></p>
           <a id='signup' class="btn btn-large btn-success" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'signup' %}'>
             {% csrf_token %}
+            <input type='text' name='name' width='20px' placeholder='real name'>
             <input type='text' name='username' width='20px' placeholder='username'>
+            <input type='text' name='wb_id' width='20px' placeholder='WB id'>
             <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
           </form>">Sign up today</a>
 
           <a id='signin' class="btn btn-large btn-primary" data-title="Enter Username" data-toggle="popover" data-html='true' data-content="<form class='form form-inline' method='POST' action='{% url 'signin' %}'>
             {% csrf_token %}
             <input type='text' name='username' width='20px' placeholder='username'>
+            <input type='text' name='wb_id' width='20px' placeholder='WB id'>
             <button id='ok-btn' class='btn btn-mini' type='submit'><i class='icon-ok'></i></button>
           </form>">Sign in</a>
 
@@ -189,28 +192,19 @@
         <div class="row-fluid marketing text-center">
           <div class="span6">
             <h4>Features</h4>
-            <p>View live OBD engine data on your Android phone</p>
-
-            <p>Upload live OBD data to your SCCOP</p>
-
-            <p>Live location updates</p>
-
-            <p>Save logs to the cloud with infinite space</p>
+            <p></p>
           </div>
 
           <div class="span6">
             <h4>For Developers</h4>
-            <p><a href="https://github.com/mabdrabo/Android-SCCOP">Opensource Android software</a></p>
-
-            <p><a href="https://github.com/mabdrabo/Arduino-SCCOP">Opensource Arduino software</a></p>
-
-            <p><a href="https://github.com/mabdrabo/Django-SCCOP">Opensource Django software</a></p>
+            <p><a href="https://github.com/mabdrabo/GEWB-Arduino">Opensource Arduino software</a></p>
+            <p><a href="https://github.com/mabdrabo/GEWB">Opensource Django software</a></p>
           </div>
         </div>
         <hr/>
         <footer>
           <small>
-            <p class="muted">* some of the content on this page is from <a class="muted" href="http://torque-bhp.com/">Torque.</a></p>
+            <p style="display:none;" class="muted">* some of the content on this page is from <a class="muted" href="http://torque-bhp.com/">Torque.</a></p>
           </small>
         </footer>
       {% endblock main_container %}

@@ -1,0 +1,52 @@
+{% extends  "gewb/master.html" %}
+
+{% block header %}
+{% endblock header %}
+
+{% block script %}
+	$('#log-tab').addClass('active')
+{% endblock script %}
+
+{% block main_container %}
+
+	<h2>{{user.name}}</h2>
+	<h4>WB-id: {{user.wb_id}}</h4>
+
+	{% ifnotequal request.session.username user.username%}
+		{% if isTracking %}
+			<a href="{% url 'add_track' user.username %}">Stop tracking</a>
+		{% else %}
+			<a href="{% url 'delete_track' user.username %}">Stop tracking</a>
+		{% endif %}
+	{% endifnotequal %}
+
+	<div id="state-tab" class="tab-pane active">
+		<div class="row-fluid marketing">
+			<div class="span12">
+				<table class="table table-striped">
+					<tr>
+						<td>Date</td>
+						<td>Type</td>
+						<td>Latitude</td>
+						<td>Longitude</td>
+					</tr>
+					{% for log in logs %}
+						<tr>
+							<td>{{ log.create_date|date:'d-m-Y f:s a' }}</td>
+							<td>{{ log.category }}</td>
+							<td>{{ log.lat }}</td>
+							<td>{{ log.lon }}</td>
+						</tr>
+					{% endfor %}
+
+					<tr>
+						<td>Date</td>
+						<td>Type</td>
+						<td>Latitude</td>
+						<td>Longitude</td>
+					</tr>
+				</table>
+			</div>
+	    </div>
+	</div>
+{% endblock main_container %}

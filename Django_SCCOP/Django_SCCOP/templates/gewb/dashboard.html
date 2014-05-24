@@ -1,0 +1,26 @@
+{% extends  "gewb/master.html" %}
+
+{% block header %}
+{% endblock header %}
+
+{% block script %}
+	$('#dashboard-tab').addClass('active');
+{% endblock script %}
+
+{% block main_container %}
+	<h3>Recent Emergencies</h3>
+	<hr/>
+    <div class="row-fluid">
+		{% for t in trackers %}
+			{% if t.get_log.0 %}
+	        	<div class="well span4 text-center">
+					<a href="{% url 'view_log' t.username %}">
+		            <h4>{{t.name}}</h4>
+					<h4>{{t.get_log.0.category}}</h4>
+					<h5>{{t.get_log.0.create_date|date:'d-m-Y f:s a' }}</h5>
+					</a>
+	        	</div>
+			{% endif %}
+		{% endfor %}
+    </div>
+{% endblock main_container %}
